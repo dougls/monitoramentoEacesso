@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: weather-api
-        image: 777870534201.dkr.ecr.us-east-1.amazonaws.com/weather-api:latest  # Substituir pelo seu repositório ECR
+        image: weather-api:latest  # Substituir pelo seu repositório ECR
         ports:
         - containerPort: 8080
           name: http
@@ -30,6 +30,8 @@ spec:
           value: "Production"
         - name: ASPNETCORE_URLS
           value: "http://+:8080"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://tempo.observability:4317"
         resources:
           requests:
             memory: "256Mi"

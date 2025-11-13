@@ -132,38 +132,34 @@ open http://localhost:3000
 
 ## 📝 Parte 2: Adicionar Loki
 
-### Passo 6: Deploy Loki
+### Passo 6: Deploy Loki e Promtail
 
 ```bash
 # Deploy Loki
-helm install loki grafana/loki-stack \
-  --namespace observability \
-  --set grafana.enabled=false \
-  --set prometheus.enabled=false \
-  --set promtail.enabled=true
+kubectl apply -f kubernetes/loki-simple.yaml
 
-# Aguardar
-kubectl wait --for=condition=ready pod -l "app=loki" -n observability --timeout=180s
+# Aguardar Loki estar pronto
+kubectl wait --for=condition=ready pod -l app=loki -n observability --timeout=120s
+
+# Aguardar mais 20s para o Ingester ficar pronto
+sleep 20
+
+# Deploy Promtail (coleta logs dos pods)
+kubectl apply -f kubernetes/promtail.yaml
+
+# Verificar Promtail rodando em todos os nodes
+kubectl get pods -n observability | grep promtail
 ```
 
 ### Passo 7: Adicionar Datasource Loki
 
 **No Grafana:**
 1. **Connections → Data sources → Add data source**
-2. **Loki**
-3. URL: `http://loki:3100`
-   - **Nota**: Como Grafana e Loki estão na mesma namespace, pode usar nome curto
-   - Alternativa: `http://loki.observability.svc.cluster.local:3100`
-4. **Save & test**
-
-**Se der erro de conexão:**
-```bash
-# Verificar se Loki está rodando
-kubectl get pods -n observability | grep loki
-
-# Testar conectividade do Grafana
-kubectl exec -n observability $(kubectl get pod -n observability -l app.kubernetes.io/name=grafana -o name) -- wget -O- http://loki:3100/ready
-```
+2. Selecione **Loki**
+3. Configure:
+   - **Name**: Loki
+   - **URL**: `http://loki.observability.svc.cluster.local:3100`
+4. Clique em **Save & test**
 
 ### Passo 8: Testar Logs
 
@@ -195,9 +191,9 @@ kubectl wait --for=condition=ready pod -l "app.kubernetes.io/name=tempo" -n obse
 **No Grafana:**
 1. **Connections → Data sources → Add data source**
 2. **Tempo**
-3. URL: `http://tempo:3100`
-   - **Nota**: Como Grafana e Tempo estão na mesma namespace, pode usar nome curto
-   - Alternativa: `http://tempo.observability.svc.cluster.local:3100`
+3. Configure:
+   - **Name**: Tempo
+   - **URL**: `http://tempo.observability.svc.cluster.local:3200`
 4. **Save & test**
 
 ---
@@ -227,14 +223,61 @@ kubectl wait --for=condition=ready pod -l "app.kubernetes.io/name=tempo" -n obse
 
 **3. Traces (Tempo):**
 - Explore → Tempo
-- Buscar trace ID
+- Query: `{service.name="weather-api"}`
+- Ver traces das requisições HTTP
 
-### Passo 13: Limpeza Final
+### Passo 13: Testar Traces da Weather API
+
+**Expor Weather API via port-forward:**
+```bash
+# Port-forward da Weather API
+kubectl port-forward -n monitoring svc/weather-api 8081:80 &
+
+# Aguardar port-forward estar pronto
+sleep 2
+```
+
+**Gerar tráfego na API:**
+```bash
+# Fazer várias requisições
+for i in {1..20}; do
+  curl -s http://localhost:8081/WeatherForecast > /dev/null
+  echo "Request $i sent"
+  sleep 1
+done
+```
+
+**Parar port-forward:**
+```bash
+# Matar processo port-forward
+pkill -f "port-forward.*weather-api"
+```
+
+**No Grafana - Explore:**
+1. Selecione datasource **Tempo**
+2. **Search**:
+   - Service Name: `weather-api`
+   - Clique em **Run query**
+3. Ver lista de traces
+4. Clicar em um trace para ver detalhes:
+   - Duração total
+   - Spans (etapas da requisição)
+   - Atributos HTTP (método, status code, URL)
+
+**Correlação Métricas → Traces:**
+1. No Prometheus, veja latência alta
+2. No Tempo, encontre o trace específico
+3. Analise onde está o gargalo!
+
+---
+
+## 🧹 Parte 5: Limpeza
+
+### Passo 14: Limpeza Final
 
 ```bash
 # Deletar releases Helm
 helm uninstall kube-prometheus-stack -n observability
-helm uninstall loki -n observability
 helm uninstall tempo -n observability
 
 # Deletar namespace observability

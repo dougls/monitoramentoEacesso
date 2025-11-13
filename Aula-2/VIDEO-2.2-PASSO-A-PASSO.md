@@ -138,4 +138,65 @@ histogram_quantile(0.95,
 
 ---
 
+## 📊 Parte 4: Adicionar Tracing (OpenTelemetry)
+
+### Passo 8: Instalar Pacotes OpenTelemetry
+
+**Adicionar ao `WeatherApi.csproj`:**
+```xml
+<PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.7.0" />
+<PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.7.0" />
+<PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.7.1" />
+<PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.7.1" />
+```
+
+### Passo 9: Configurar Tracing no Program.cs
+
+**Adicionar após os usings:**
+```csharp
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+```
+
+**Adicionar após `builder.Services.AddSwaggerGen();`:**
+```csharp
+// Configurar OpenTelemetry para Tracing
+builder.Services.AddOpenTelemetry()
+    .WithTracing(tracerProviderBuilder =>
+    {
+        tracerProviderBuilder
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("weather-api"))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddOtlpExporter(options =>
+            {
+                // Tempo endpoint (OTLP gRPC)
+                options.Endpoint = new Uri(Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://tempo.observability:4317");
+            });
+    });
+```
+
+**Explicação:**
+- **AddService**: Nome do serviço nos traces
+- **AddAspNetCoreInstrumentation**: Instrumenta requisições HTTP automaticamente
+- **AddHttpClientInstrumentation**: Instrumenta chamadas HTTP externas
+- **AddOtlpExporter**: Exporta traces para o Tempo via OTLP (OpenTelemetry Protocol)
+
+### Passo 10: Atualizar Deployment
+
+**Adicionar variável de ambiente no `weather-api-deployment.yaml`:**
+```yaml
+env:
+- name: OTEL_EXPORTER_OTLP_ENDPOINT
+  value: "http://tempo.observability:4317"
+```
+
+**Agora a aplicação está instrumentada com:**
+- ✅ **Métricas** → Prometheus
+- ✅ **Traces** → Tempo (via OpenTelemetry)
+
+**Nota**: Os traces serão visualizados na Aula 3 quando o Tempo for configurado no Grafana!
+
+---
+
 **Próximo**: VIDEO-2.3-PASSO-A-PASSO.md

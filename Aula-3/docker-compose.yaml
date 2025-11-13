@@ -106,7 +106,7 @@ services:
 
   weather-api:
     build:
-      context: ./dotnet-app
+      context: ../Aula-2/dotnet-app
       dockerfile: Dockerfile
     container_name: weather-api
     ports:

@@ -1,4 +1,6 @@
 using Prometheus;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,21 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configurar OpenTelemetry para Tracing
+builder.Services.AddOpenTelemetry()
+    .WithTracing(tracerProviderBuilder =>
+    {
+        tracerProviderBuilder
+            .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("weather-api"))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddOtlpExporter(options =>
+            {
+                // Tempo endpoint (OTLP gRPC)
+                options.Endpoint = new Uri(Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://tempo.observability:4317");
+            });
+    });
 
 var app = builder.Build();
 
