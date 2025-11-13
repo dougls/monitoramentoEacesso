@@ -3,7 +3,6 @@
 **Aula**: 3 - Grafana no Kubernetes  
 **Vídeo**: 3.3  
 **Temas**: kube-prometheus-stack; Loki; Tempo; Observabilidade completa  
-**Tempo estimado**: 20 minutos
 
 **Stack Completa de Observabilidade:**
 
@@ -53,7 +52,7 @@ graph TB
 
 ---
 
-## ⚡ Parte 1: kube-prometheus-stack (8 min)
+## ⚡ Parte 1: kube-prometheus-stack
 
 ### Passo 1: Instalar Helm
 
@@ -131,7 +130,7 @@ open http://localhost:3000
 
 ---
 
-## 📝 Parte 2: Adicionar Loki (4 min)
+## 📝 Parte 2: Adicionar Loki
 
 ### Passo 6: Deploy Loki
 
@@ -147,12 +146,12 @@ helm install loki grafana/loki-stack \
 kubectl wait --for=condition=ready pod -l "app=loki" -n observability --timeout=180s
 ```
 
-### Passo 7: Adicionar Datasource
+### Passo 7: Adicionar Datasource Loki
 
 **No Grafana:**
 1. **Connections → Data sources → Add data source**
 2. **Loki**
-3. URL: `http://loki:3100`
+3. URL: `http://loki.observability.svc.cluster.local:3100`
 4. **Save & test**
 
 ### Passo 8: Testar Logs
@@ -167,7 +166,7 @@ kubectl wait --for=condition=ready pod -l "app=loki" -n observability --timeout=
 
 ---
 
-## 🔍 Parte 3: Adicionar Tempo (4 min)
+## 🔍 Parte 3: Adicionar Tempo
 
 ### Passo 9: Deploy Tempo
 
@@ -180,17 +179,17 @@ helm install tempo grafana/tempo \
 kubectl wait --for=condition=ready pod -l "app.kubernetes.io/name=tempo" -n observability --timeout=180s
 ```
 
-### Passo 10: Adicionar Datasource
+### Passo 10: Adicionar Datasource Tempo
 
 **No Grafana:**
 1. **Connections → Data sources → Add data source**
 2. **Tempo**
-3. URL: `http://tempo:3100`
+3. URL: `http://tempo.observability.svc.cluster.local:3100`
 4. **Save & test**
 
 ---
 
-## 🎯 Parte 4: Stack Completa (4 min)
+## 🎯 Parte 4: Stack Completa
 
 ### Passo 11: Verificar 3 Pilares
 
@@ -243,5 +242,4 @@ aws eks delete-cluster \
 
 ---
 
-**Duração**: ~20 minutos  
-**FIM DO CURSO** 🎓
+**FIM DA AULA 3** 🎓

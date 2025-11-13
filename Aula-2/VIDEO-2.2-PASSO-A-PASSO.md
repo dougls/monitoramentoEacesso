@@ -3,11 +3,10 @@
 **Aula**: 2 - Prometheus + .NET no Kubernetes  
 **Vídeo**: 2.2  
 **Temas**: Instrumentação; /metrics; PromQL  
-**Tempo estimado**: 20 minutos
 
 ---
 
-## 💻 Parte 1: Instrumentação .NET (7 min)
+## 💻 Parte 1: Instrumentação .NET
 
 ### Passo 1: Examinar Código
 
@@ -52,7 +51,7 @@ TemperatureSummary.Observe(temperature);
 
 ---
 
-## 📊 Parte 2: Análise /metrics (5 min)
+## 📊 Parte 2: Análise /metrics
 
 ### Passo 3: Gerar Dados
 
@@ -85,7 +84,7 @@ weather_requests_total{endpoint="/WeatherForecast"} 50
 
 ---
 
-## 🔍 Parte 3: PromQL (8 min)
+## 🔍 Parte 3: PromQL
 
 ### Passo 5: Queries Básicas
 
@@ -139,5 +138,4 @@ histogram_quantile(0.95,
 
 ---
 
-**Duração**: ~20 minutos  
 **Próximo**: VIDEO-2.3-PASSO-A-PASSO.md

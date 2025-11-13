@@ -3,11 +3,10 @@
 **Aula**: 1 - Zabbix no Kubernetes  
 **Vídeo**: 1.3  
 **Temas**: Templates; Triggers; Simulação; Dashboards; Limpeza  
-**Tempo estimado**: 20 minutos
 
 ---
 
-## 📊 Parte 1: Criar Primeiro Host (8 min)
+## 📊 Parte 1: Criar Primeiro Host
 
 ### Passo 1: Obter IP do Node
 
@@ -76,7 +75,7 @@ sleep 120
 
 ---
 
-## 🚨 Parte 2: Triggers (7 min)
+## 🚨 Parte 2: Triggers
 
 ### Passo 5: Ver Triggers Existentes
 
@@ -141,7 +140,7 @@ kubectl delete pod stress-test -n monitoring
 
 ---
 
-## 📊 Parte 3: Dashboard (5 min)
+## 📊 Parte 3: Dashboard
 
 ### Passo 9: Criar Dashboard
 
@@ -171,7 +170,7 @@ kubectl delete pod stress-test -n monitoring
 
 ---
 
-## 🧹 Parte 4: Limpeza (3 min)
+## 🧹 Parte 4: Limpeza
 
 ### Passo 12: Deletar Recursos
 
@@ -215,5 +214,4 @@ aws eks wait cluster-deleted \
 
 ---
 
-**Duração**: ~20 minutos  
 **FIM DA AULA 1**

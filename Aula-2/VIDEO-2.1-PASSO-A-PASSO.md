@@ -3,11 +3,10 @@
 **Aula**: 2 - Prometheus + .NET no Kubernetes  
 **Vídeo**: 2.1  
 **Temas**: Prometheus; Pull vs Push; ECR; Deploy no K8s  
-**Tempo estimado**: 20 minutos
 
 ---
 
-## 📚 Parte 1: Conceito Prometheus (5 min)
+## 📚 Parte 1: Conceito Prometheus
 
 ### Passo 1: Apresentação do Prometheus
 
@@ -43,7 +42,7 @@ graph LR
 
 ---
 
-## 🔄 Parte 2: Continuação da Aula 1 + Demo (5 min)
+## 🔄 Parte 2: Continuação da Aula 1 + Demo
 
 ### Passo 2: Verificar Ambiente da Aula 1
 
@@ -84,7 +83,7 @@ docker-compose down -v
 
 ---
 
-## ☸️ Parte 3: ECR e Deploy (10 min)
+## ☸️ Parte 3: ECR e Deploy
 
 ### Passo 4: Criar Repositório ECR
 
@@ -167,5 +166,4 @@ open http://localhost:9090
 
 ---
 
-**Duração**: ~20 minutos  
 **Próximo**: VIDEO-2.2-PASSO-A-PASSO.md

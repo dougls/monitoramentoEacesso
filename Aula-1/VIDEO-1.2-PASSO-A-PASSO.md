@@ -3,11 +3,10 @@
 **Aula**: 1 - Zabbix no Kubernetes  
 **Vídeo**: 1.2  
 **Temas**: Finalizar deploy; Configuração web; Conceitos; Coleta de dados  
-**Tempo estimado**: 20 minutos
 
 ---
 
-## 🚀 Parte 1: Deploy Completo no EKS (10 min)
+## 🚀 Parte 1: Deploy Completo no EKS
 
 ### Passo 1: Deploy PostgreSQL
 
@@ -72,7 +71,7 @@ kubectl wait --for=condition=ready pod -l app=zabbix-agent -n monitoring --timeo
 
 ---
 
-## 🌐 Parte 2: Configuração Inicial Web (5 min)
+## 🌐 Parte 2: Configuração Inicial Web
 
 ### Passo 5: Acessar Zabbix Web
 
@@ -107,7 +106,7 @@ open http://localhost:8080
 
 ---
 
-## 🔍 Parte 3: Preparar para Configuração (5 min)
+## 🔍 Parte 3: Preparar para Configuração
 
 ### Passo 6: Verificar Agents
 
@@ -119,9 +118,6 @@ kubectl get pods -n monitoring -l app=zabbix-agent -o wide
 kubectl get nodes -o wide
 ```
 
-**Próxima aula:** Configuração completa de hosts e coleta!
-
 ---
 
-**Duração**: ~20 minutos  
 **Próximo**: VIDEO-1.3-PASSO-A-PASSO.md

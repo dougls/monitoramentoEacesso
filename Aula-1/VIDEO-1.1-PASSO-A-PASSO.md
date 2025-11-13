@@ -3,11 +3,10 @@
 **Aula**: 1 - Zabbix no Kubernetes  
 **Vídeo**: 1.1  
 **Temas**: Importância do monitoramento; Demo local; Criação cluster EKS; Início deploy  
-**Tempo estimado**: 20 minutos
 
 ---
 
-## 📚 Parte 1: Conceito e Arquitetura (5 min)
+## 📚 Parte 1: Conceito e Arquitetura
 
 ### Passo 1: Importância do Monitoramento
 
@@ -50,7 +49,7 @@ graph TB
 
 ---
 
-## Parte 2: Demo Local Rápida (3 min)
+## Parte 2: Demo Local Rápida
 
 ### Passo 3: Subir Zabbix Local
 
@@ -180,7 +179,7 @@ echo "Em produção: usar PVCs (dados persistentes)"
 
 ---
 
-## 🎯 Parte 4: Preparação para Deploy (5 min)
+## 🎯 Parte 4: Preparação para Deploy
 
 ### Passo 10: Revisar Manifestos
 
@@ -210,9 +209,6 @@ echo "^ Learner Lab: emptyDir temporário (adequado para curso)"
 - **NodePort**: Acesso externo (30000-32767)
 - **LoadBalancer**: Cloud providers
 
-**Próxima aula:** Deploy completo no EKS!
-
 ---
 
-**Duração**: ~20 minutos  
 **Próximo**: VIDEO-1.2-PASSO-A-PASSO.md

@@ -3,11 +3,10 @@
 **Aula**: 2 - Prometheus + .NET no Kubernetes  
 **Vídeo**: 2.3  
 **Temas**: Comparativo; Cenários; Sinergia; Limpeza  
-**Tempo estimado**: 20 minutos
 
 ---
 
-## Parte 1: Comparativo (8 min)
+## Parte 1: Comparativo
 
 ### Passo 1: Comparar Modelos
 
@@ -102,7 +101,7 @@ graph TB
 
 ---
 
-## 📊 Parte 2: Demonstração (7 min)
+## 📊 Parte 2: Demonstração
 
 ### Passo 5: Ver Ambos Funcionando
 
@@ -142,7 +141,7 @@ open http://localhost:8080  # Zabbix (se disponível)
 
 ---
 
-## 🧹 Parte 3: Limpeza (5 min)
+## 🧹 Parte 3: Limpeza
 
 ### Passo 7: Deletar Recursos da Aula 2
 
@@ -193,5 +192,4 @@ aws eks delete-cluster \
 
 ---
 
-**Duração**: ~20 minutos  
 **FIM DA AULA 2**

@@ -3,11 +3,10 @@
 **Aula**: 3 - Grafana no Kubernetes  
 **Vídeo**: 3.2  
 **Temas**: Conectar datasources; Deploy serviços; Gerar carga; Dashboards  
-**Tempo estimado**: 20 minutos
 
 ---
 
-## 🔌 Parte 1: Conectar Datasources (5 min)
+## 🔌 Parte 1: Conectar Datasources
 
 ### Passo 1: Verificar/Deploy Prometheus
 
@@ -53,7 +52,7 @@ kubectl wait --for=condition=ready pod -l app=zabbix-server -n monitoring --time
 
 ---
 
-## 🚀 Parte 2: Gerar Carga para Testes (3 min)
+## 🚀 Parte 2: Gerar Carga para Testes
 
 ### Passo 5: Gerar Dados
 
@@ -86,7 +85,7 @@ open http://localhost:9090
 
 ---
 
-## 🎨 Parte 3: Criar Dashboard (12 min)
+## 🎨 Parte 3: Criar Dashboard
 
 ### Passo 7: Novo Dashboard
 
@@ -165,5 +164,4 @@ Query: label_values(weather_requests_total, endpoint)
 
 ---
 
-**Duração**: ~20 minutos  
 **Próximo**: VIDEO-3.3-PASSO-A-PASSO.md

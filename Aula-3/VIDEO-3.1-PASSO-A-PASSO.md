@@ -3,11 +3,10 @@
 **Aula**: 3 - Grafana no Kubernetes  
 **Vídeo**: 3.1  
 **Temas**: Grafana; Single pane; Deploy; Datasources  
-**Tempo estimado**: 20 minutos
 
 ---
 
-## 📚 Parte 1: Conceito Grafana (5 min)
+## 📚 Parte 1: Conceito Grafana
 
 ### Passo 1: Apresentação do Grafana
 
@@ -53,7 +52,7 @@ Prometheus + Zabbix + Loki + Tempo
 
 ---
 
-## 🐳 Parte 2: Demo Local (3 min)
+## 🐳 Parte 2: Demo Local
 
 ### Passo 3: Verificar Cluster
 
@@ -85,7 +84,7 @@ docker-compose down -v
 
 ---
 
-## ☸️ Parte 3: Deploy Grafana (7 min)
+## ☸️ Parte 3: Deploy Grafana
 
 ### Passo 5: Deploy Grafana
 
@@ -112,7 +111,7 @@ kubectl wait --for=condition=ready pod -l app=grafana -n monitoring --timeout=30
 
 ---
 
-## 🔌 Parte 4: Configurar Datasources (5 min)
+## 🔌 Parte 4: Configurar Datasources
 
 ### Passo 6: Acessar Grafana
 
@@ -148,9 +147,6 @@ kubectl get nodes -o wide
 # Login: admin / admin
 ```
 
-**Próxima aula:** Conectar datasources e criar dashboards!
-
 ---
 
-**Duração**: ~20 minutos  
 **Próximo**: VIDEO-3.2-PASSO-A-PASSO.md
