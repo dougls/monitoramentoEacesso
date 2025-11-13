@@ -26,10 +26,10 @@ Thumbs.db
 # Logs
 *.log
 
-# Secrets
-*.env
-secrets.yaml
-*-secret.yaml
+# # Secrets
+# *.env
+# secrets.yaml
+# *-secret.yaml
 
 # Temporary files
 *.tmp
