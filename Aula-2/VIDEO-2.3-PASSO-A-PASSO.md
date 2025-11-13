@@ -37,7 +37,6 @@ graph LR
 | **UI** | Built-in | Externa (Grafana) |
 | **Configuração** | Interface Web + Templates | YAML + Service Discovery |
 | **Alertas** | Triggers | AlertManager |
-| **Histórico** | Longo prazo (anos) | Curto prazo (dias) |
 | **Query** | Interface Web | PromQL |
 
 ### Passo 2: Quando Usar Zabbix
