@@ -1,1 +1,87 @@
-version: '3.8'
+
+services:
+  # Banco de dados PostgreSQL para o Zabbix
+  postgres-server:
+    image: postgres:15-alpine
+    container_name: zabbix-postgres
+    environment:
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix_pwd
+      POSTGRES_DB: zabbix
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - zabbix-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U zabbix"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Zabbix Server
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:alpine-6.4-latest
+    container_name: zabbix-server
+    environment:
+      DB_SERVER_HOST: postgres-server
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix_pwd
+      POSTGRES_DB: zabbix
+      ZBX_ENABLE_SNMP_TRAPS: "true"
+    ports:
+      - "10051:10051"
+    volumes:
+      - zabbix-server-data:/var/lib/zabbix
+    depends_on:
+      postgres-server:
+        condition: service_healthy
+    networks:
+      - zabbix-net
+    restart: unless-stopped
+
+  # Zabbix Web Interface (Frontend)
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-6.4-latest
+    container_name: zabbix-web
+    environment:
+      DB_SERVER_HOST: postgres-server
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix_pwd
+      POSTGRES_DB: zabbix
+      ZBX_SERVER_HOST: zabbix-server
+      PHP_TZ: America/Sao_Paulo
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-server
+      - zabbix-server
+    networks:
+      - zabbix-net
+    restart: unless-stopped
+
+  # Zabbix Agent (para monitorar o próprio host Docker)
+  zabbix-agent:
+    image: zabbix/zabbix-agent:alpine-6.4-latest
+    container_name: zabbix-agent
+    environment:
+      ZBX_HOSTNAME: "Zabbix-Docker-Host"
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_SERVER_PORT: 10051
+    ports:
+      - "10050:10050"
+    depends_on:
+      - zabbix-server
+    networks:
+      - zabbix-net
+    restart: unless-stopped
+    privileged: true
+    pid: "host"
+
+networks:
+  zabbix-net:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  zabbix-server-data:

@@ -1,0 +1,33 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'docker-local'
+    environment: 'development'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          app: 'prometheus'
+          tier: 'monitoring'
+
+  - job_name: 'weather-api'
+    scrape_interval: 10s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['weather-api:8080']
+        labels:
+          app: 'weather-api'
+          tier: 'application'
+          language: 'dotnet'
+          framework: 'aspnetcore'
+
+  - job_name: 'zabbix-server'
+    scrape_interval: 30s
+    static_configs:
+      - targets: ['zabbix-server:10051']
+        labels:
+          app: 'zabbix-server'
+          tier: 'monitoring'

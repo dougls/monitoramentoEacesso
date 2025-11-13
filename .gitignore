@@ -1,0 +1,36 @@
+# Docker volumes
+**/postgres-data/
+**/zabbix-server-data/
+**/prometheus-data/
+**/grafana-data/
+
+# .NET
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+**/*.cache
+**/.vs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Secrets
+*.env
+secrets.yaml
+*-secret.yaml
+
+# Temporary files
+*.tmp
+*.bak
