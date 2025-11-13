@@ -151,8 +151,19 @@ kubectl wait --for=condition=ready pod -l "app=loki" -n observability --timeout=
 **No Grafana:**
 1. **Connections → Data sources → Add data source**
 2. **Loki**
-3. URL: `http://loki.observability.svc.cluster.local:3100`
+3. URL: `http://loki:3100`
+   - **Nota**: Como Grafana e Loki estão na mesma namespace, pode usar nome curto
+   - Alternativa: `http://loki.observability.svc.cluster.local:3100`
 4. **Save & test**
+
+**Se der erro de conexão:**
+```bash
+# Verificar se Loki está rodando
+kubectl get pods -n observability | grep loki
+
+# Testar conectividade do Grafana
+kubectl exec -n observability $(kubectl get pod -n observability -l app.kubernetes.io/name=grafana -o name) -- wget -O- http://loki:3100/ready
+```
 
 ### Passo 8: Testar Logs
 
@@ -184,7 +195,9 @@ kubectl wait --for=condition=ready pod -l "app.kubernetes.io/name=tempo" -n obse
 **No Grafana:**
 1. **Connections → Data sources → Add data source**
 2. **Tempo**
-3. URL: `http://tempo.observability.svc.cluster.local:3100`
+3. URL: `http://tempo:3100`
+   - **Nota**: Como Grafana e Tempo estão na mesma namespace, pode usar nome curto
+   - Alternativa: `http://tempo.observability.svc.cluster.local:3100`
 4. **Save & test**
 
 ---
