@@ -80,7 +80,7 @@ open http://localhost:9090
 
 # Consultas para testar:
 # http_requests_total
-# weather_api_requests_total
+# weather_requests_total
 ```
 
 ---
