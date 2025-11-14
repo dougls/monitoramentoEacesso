@@ -116,7 +116,7 @@ kubectl wait --for=condition=ready pod -l app=grafana -n monitoring --timeout=30
 
 ```bash
 # Port forward
-kubectl port-forward svc/grafana 3000:80 -n monitoring &
+kubectl port-forward svc/grafana 3000:3000 -n monitoring &
 open http://localhost:3000
 
 # Login: admin / admin
