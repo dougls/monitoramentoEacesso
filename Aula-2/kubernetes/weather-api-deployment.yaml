@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: weather-api
-        image: weather-api:latest  # Substituir pelo seu repositório ECR
+        image: 777870534201.dkr.ecr.us-east-1.amazonaws.com/weather-api:latest  # Substituir pelo seu repositório ECR
         ports:
         - containerPort: 8080
           name: http

@@ -95,17 +95,16 @@ cd ~/monitoramentoEacesso/Aula-3/kubernetes
 kubectl apply -f grafana-configmap.yaml -n monitoring
 
 # MOSTRAR: Conceito de storage persistente vs temporário
-# cat grafana-pvc.yaml
-# echo "^ Produção: dados persistem entre reinicializações"
-# cat grafana-deployment.yaml | grep -A 6 "grafana-storage"
-# echo "^ Learner Lab: dados temporários (adequado para curso)"
+cat grafana-pvc.yaml
+echo "^ Produção: dados persistem entre reinicializações"
 
-# Editar para NodePort
-nano grafana-deployment.yaml
-# Alterar type: NodePort, nodePort: 30300
+cat grafana-deployment.yaml | grep -A 6 "grafana-storage"
+echo "^ Learner Lab: dados temporários (adequado para curso)"
 
-# Deploy (usando emptyDir - sem PVC)
+# Deploy Grafana (usando emptyDir - sem PVC)
 kubectl apply -f grafana-deployment.yaml -n monitoring
+
+# Aguardar Grafana estar pronto
 kubectl wait --for=condition=ready pod -l app=grafana -n monitoring --timeout=300s
 ```
 
